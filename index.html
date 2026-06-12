@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sladký sen - Objednávka zákusků</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #ffe4ec, #fff5d6);
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        text-align: center;
+        color: #d63384;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #666;
+    }
+
+    .item {
+        display: grid;
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+        gap: 15px;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .item:hover {
+        background-color: #fff7fa;
+    }
+
+    .item label {
+        font-size: 18px;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .summary {
+        margin-top: 25px;
+        padding: 20px;
+        background: #fff0f6;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #d63384;
+    }
+
+    .customer {
+        margin-top: 30px;
+    }
+
+    .customer h2 {
+        margin-bottom: 15px;
+        color: #444;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        background-color: #ff4d88;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #e6005c;
+        transform: scale(1.02);
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🍰 Sladký sen</h1>
+    <p class="subtitle">Objednávka domácích zákusků</p>
+
+    <form action="https://api.example.com/objednavka" method="POST">
+
+        <div class="item">
+            <label>Makronka (35 Kč)</label>
+            <input type="number" name="makronka" min="0" value="0" data-price="35">
+        </div>
+
+        <div class="item">
+            <label>Cupcake (55 Kč)</label>
+            <input type="number" name="cupcake" min="0" value="0" data-price="55">
+        </div>
+
+        <div class="item">
+            <label>Tartaletka (50 Kč)</label>
+            <input type="number" name="tartaletka" min="0" value="0" data-price="50">
+        </div>
+
+        <div class="item">
+            <label>Větrník (55 Kč)</label>
+            <input type="number" name="vetrnik" min="0" value="0" data-price="55">
+        </div>
+
+        <div class="item">
+            <label>Věneček (45 Kč)</label>
+            <input type="number" name="venecek" min="0" value="0" data-price="45">
+        </div>
+
+        <div class="item">
+            <label>Laskonka (40 Kč)</label>
+            <input type="number" name="laskonka" min="0" value="0" data-price="40">
+        </div>
+
+        <div class="item">
+            <label>Indiánek (35 Kč)</label>
+            <input type="number" name="indianek" min="0" value="0" data-price="35">
+        </div>
+
+        <div class="item">
+            <label>Špička (30 Kč)</label>
+            <input type="number" name="spicka" min="0" value="0" data-price="30">
+        </div>
+
+        <div class="item">
+            <label>Medovník (60 Kč)</label>
+            <input type="number" name="medovnik" min="0" value="0" data-price="60">
+        </div>
+
+        <div class="summary">
+            Celkový počet kusů:
+            <span id="totalPieces">0</span>
+            <br>
+            Celková cena:
+            <span id="totalPrice">0</span> Kč
+        </div>
+
+        <div class="customer">
+            <h2>Kontaktní údaje</h2>
+
+            <div class="form-group">
+                <label for="jmeno">Jméno a příjmení:</label>
+                <input type="text" id="jmeno" name="jmeno" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefon">Telefonní číslo:</label>
+                <input type="tel" id="telefon" name="telefon" required>
+            </div>
+        </div>
+
+        <!-- Skrytá pole s výsledky -->
+        <input type="hidden" id="hiddenTotalPrice" name="celkovaCena">
+        <input type="hidden" id="hiddenTotalPieces" name="celkovyPocetKusu">
+
+        <button type="submit">
+            ODESLAT OBJEDNÁVKU
+        </button>
+
+    </form>
+
+
+</div>
+
+<script>
+
+const quantityInputs = document.querySelectorAll('input[type="number"]');
+
+function calculateOrder() {
+
+    let totalPrice = 0;
+    let totalPieces = 0;
+
+    quantityInputs.forEach(input => {
+
+        const quantity = Number(input.value);
+        const price = Number(input.dataset.price);
+
+        totalPieces += quantity;
+        totalPrice += quantity * price;
+    });
+
+    document.getElementById("totalPieces").textContent = totalPieces;
+    document.getElementById("totalPrice").textContent = totalPrice;
+
+    document.getElementById("hiddenTotalPrice").value = totalPrice;
+    document.getElementById("hiddenTotalPieces").value = totalPieces;
+}
+
+quantityInputs.forEach(input => {
+    input.addEventListener("input", calculateOrder);
+});
+
+calculateOrder();
+
+</script>
+
+</body>
+</html>
